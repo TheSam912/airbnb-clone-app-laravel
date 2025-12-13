@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicListingController;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'home')->name('home');
 
 Route::get('/listings', [PublicListingController::class, 'index'])->name('listings.index');
 Route::get('/listings/{listing}', [PublicListingController::class, 'show'])->name('listings.show');
@@ -28,5 +28,11 @@ Route::middleware(['auth'])->prefix('host')->name('host.')->group(function () {
     Route::delete('listings/{listing}/photos/{photo}', [ListingController::class, 'destroyPhoto'])->name('listings.photos.destroy');
     Route::patch('listings/{listing}/photos/{photo}/cover', [ListingController::class, 'setCoverPhoto'])->name('listings.photos.cover');
 });
+Route::middleware('auth')->group(function () {
+    Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
+});
 
+Route::middleware('auth')->group(function () {
+    Route::post('/listings/{listing}/book', [BookingController::class, 'store'])->name('bookings.store');
+});
 require __DIR__.'/auth.php';

@@ -52,7 +52,10 @@ class ListingController extends Controller
     {
         $this->ensureOwner($listing);
 
-        $listing->load(['amenities', 'photos']);
+        $listing->load([
+            'amenities',
+            'photos' => fn ($q) => $q->orderByDesc('is_cover')->orderBy('sort_order'),
+        ]);
 
         return view('host.listings.show', compact('listing'));
     }
