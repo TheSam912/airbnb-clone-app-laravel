@@ -22,8 +22,12 @@
                     </x-nav-link>
 
                     @auth
-                        <x-nav-link :href="route('host.listings.index')" :active="request()->routeIs('host.*')">
+                        <x-nav-link :href="route('host.listings.index')" :active="request()->routeIs('host.listings.*')">
                             {{ __('Host dashboard') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('host.bookings.index')" :active="request()->routeIs('host.bookings.*')">
+                            {{ __('Bookings') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('trips.index')" :active="request()->routeIs('trips.*')">
@@ -108,6 +112,10 @@
             @auth
                 <x-responsive-nav-link :href="route('host.listings.index')" :active="request()->routeIs('host.*')">
                     {{ __('Host dashboard') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('host.bookings.index')" :active="request()->routeIs('host.bookings.*')">
+                    {{ __('Bookings') }}
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('trips.index')" :active="request()->routeIs('trips.*')">

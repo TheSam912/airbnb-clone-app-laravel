@@ -28,6 +28,19 @@
                         <div class="ml-auto font-semibold">
                             {{ number_format($booking->subtotal / 100, 2) }}
                         </div>
+                        @if($booking->status !== 'cancelled')
+                            <form method="POST" action="{{ route('bookings.cancel', $booking) }}"
+                                onsubmit="return confirm('Cancel this booking?')">
+                                @csrf
+                                @method('PATCH')
+                                <button class="inline-flex items-center justify-center px-4 py-2 rounded-lg
+                                                       bg-red-600 text-white font-medium
+                                                       hover:bg-red-700 active:bg-red-800
+                                                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                    Cancel
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 @empty
                     <div class="p-10 text-center text-gray-500">

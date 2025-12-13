@@ -53,4 +53,17 @@ class BookingController extends Controller
 
         return redirect()->route('trips.index')->with('status', 'Booking confirmed.');
     }
+
+    public function cancel(Booking $booking): RedirectResponse
+    {
+        abort_unless($booking->user_id === request()->user()->id, 403);
+
+        if (! in_array($booking->status, ['pending', 'confirmed'], true)) {
+            return back()->with('status', 'This booking cannot be cancelled.');
+        }
+
+        $booking->update(['status' => 'cancelled']);
+
+        return back()->with('status', 'Booking cancelled.');
+    }
 }
