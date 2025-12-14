@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function wishlistListings()
+    {
+        return $this->belongsToMany(Listing::class, 'wishlists')
+            ->withTimestamps();
+    }
 }

@@ -1,80 +1,114 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="flex items-center gap-2">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                        <span class="font-semibold text-gray-900 hidden sm:inline">Airclone</span>
-                    </a>
-                </div>
+        <div class="flex h-16 items-center justify-between">
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('listings.index')" :active="request()->routeIs('listings.*')">
-                        {{ __('Stays') }}
-                    </x-nav-link>
-
-                    @auth
-                        <x-nav-link :href="route('host.listings.index')" :active="request()->routeIs('host.listings.*')">
-                            {{ __('Host dashboard') }}
-                        </x-nav-link>
-
-                        <x-nav-link :href="route('host.bookings.index')" :active="request()->routeIs('host.bookings.*')">
-                            {{ __('Bookings') }}
-                        </x-nav-link>
-
-                        <x-nav-link :href="route('trips.index')" :active="request()->routeIs('trips.*')">
-                            {{ __('Trips') }}
-                        </x-nav-link>
-                    @endauth
-                </div>
+            {{-- LEFT: Brand --}}
+            <div class="flex items-center gap-3">
+                <a href="{{ route('home') }}" class="flex items-center gap-2">
+                    <div class="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold">
+                        A
+                    </div>
+                    <span class="text-lg font-semibold text-gray-900 hidden sm:inline">
+                        Airclone
+                    </span>
+                </a>
             </div>
 
-            <!-- Right side -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            {{-- CENTER: Main navigation (desktop) --}}
+
+            {{-- CENTER: Search pill --}}
+            <div class="hidden md:flex flex-2 justify-center">
+                <a href="{{ route('listings.index') }}"
+                    class="flex items-center gap-3 px-4 py-2 rounded-full border shadow-sm hover:shadow-md transition">
+                    <span class="text-sm font-medium text-gray-800">Anywhere</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-sm font-medium text-gray-800">Any week</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-sm text-gray-500">Add guests</span>
+                    <span class="ml-2 w-8 h-8 rounded-full text-white flex items-center justify-center">
+                        🔍
+                    </span>
+                </a>
+            </div>
+
+            {{-- RIGHT: Auth --}}
+            <div class="hidden md:flex items-center gap-3">
                 @guest
-                    <div class="flex items-center gap-2">
-                        <a class="px-4 py-2 rounded-lg border hover:bg-gray-50" href="{{ route('login') }}">Log in</a>
-                        <a class="px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-black"
-                            href="{{ route('register') }}">Sign up</a>
-                    </div>
+                    <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100">
+                        Log in
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700">
+                        Sign up
+                    </a>
                 @else
-                    <!-- Settings Dropdown -->
+                    @auth
+                        <a href="{{ route('host.listings.create') }}"
+                            class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50">
+                            Airbnb your home
+                        </a>
+                    @endauth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-600 bg-white hover:text-gray-900 focus:outline-none transition ease-in-out duration-150">
-                                <div class="max-w-[140px] truncate">{{ Auth::user()->name }}</div>
-
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
+                            <button class="flex items-center gap-2 px-3 py-2 rounded-full border hover:shadow-sm">
+                                <span class="text-sm font-medium text-gray-700">
+                                    {{ Auth::user()->name }}
+                                </span>
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
                             </button>
                         </x-slot>
 
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
+                                Profile
                             </x-dropdown-link>
 
-                            <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    Log out
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                        <x-slot name="content">
+
+                            <div class="px-4 py-2 text-xs text-gray-500 uppercase">Hosting</div>
+
+                            <x-dropdown-link :href="route('host.listings.index')">
+                                Manage listings
+                            </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('host.bookings.index')">
+                                Host bookings
+                            </x-dropdown-link>
+
+                            <div class="border-t my-2"></div>
+
+                            <div class="px-4 py-2 text-xs text-gray-500 uppercase">Travel</div>
+
+                            <x-dropdown-link :href="route('trips.index')">
+                                My trips
+                            </x-dropdown-link>
+
+                            <div class="border-t my-2"></div>
+                            <x-dropdown-link :href="route('wishlist.index')">
+                                Wishlist
+                            </x-dropdown-link>
+                            <div class="border-t my-2"></div>
+
+                            <x-dropdown-link :href="route('profile.edit')">
+                                Profile
+                            </x-dropdown-link>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    Log out
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -82,76 +116,40 @@
                 @endguest
             </div>
 
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            {{-- MOBILE hamburger --}}
+            <div class="md:hidden">
+                <button @click="open = !open" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Home') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('listings.index')" :active="request()->routeIs('listings.*')">
-                {{ __('Stays') }}
-            </x-responsive-nav-link>
+    {{-- MOBILE menu --}}
+    <div x-show="open" x-transition @click.outside="open = false" class="md:hidden border-t bg-white">
+        <div class="px-4 py-4 space-y-3">
+            <a href="{{ route('listings.index') }}" class="block font-medium">Stays</a>
 
             @auth
-                <x-responsive-nav-link :href="route('host.listings.index')" :active="request()->routeIs('host.*')">
-                    {{ __('Host dashboard') }}
-                </x-responsive-nav-link>
+                <a href="{{ route('host.listings.index') }}" class="block font-medium">Host</a>
+                <a href="{{ route('host.bookings.index') }}" class="block font-medium">Bookings</a>
+                <a href="{{ route('trips.index') }}" class="block font-medium">Trips</a>
+                <a href="{{ route('wishlist.index') }}" class="block font-medium">Wishlist</a>
 
-                <x-responsive-nav-link :href="route('host.bookings.index')" :active="request()->routeIs('host.bookings.*')">
-                    {{ __('Bookings') }}
-                </x-responsive-nav-link>
+                <hr>
 
-                <x-responsive-nav-link :href="route('trips.index')" :active="request()->routeIs('trips.*')">
-                    {{ __('Trips') }}
-                </x-responsive-nav-link>
-            @endauth
-        </div>
+                <a href="{{ route('profile.edit') }}" class="block text-sm text-gray-600">Profile</a>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            @auth
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="block text-sm text-red-600">Log out</button>
+                </form>
             @else
-                <div class="px-4 py-3 flex gap-2">
-                    <a class="w-full text-center px-4 py-2 rounded-lg border hover:bg-gray-50"
-                        href="{{ route('login') }}">Log in</a>
-                    <a class="w-full text-center px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-black"
-                        href="{{ route('register') }}">Sign up</a>
-                </div>
+                <a href="{{ route('login') }}" class="block font-medium">Log in</a>
+                <a href="{{ route('register') }}" class="block font-medium text-red-600">Sign up</a>
             @endauth
         </div>
     </div>

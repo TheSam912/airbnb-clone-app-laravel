@@ -43,4 +43,10 @@ class Listing extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function wishlistedBy()
+    {
+        return $this->belongsToMany(User::class, 'wishlists')
+            ->withTimestamps();
+    }
 }

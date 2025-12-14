@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\BookingController as HostBookingController;
 use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicListingController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home')->name('home');
+// Route::view('/', 'home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/listings', [PublicListingController::class, 'index'])->name('listings.index');
 Route::get('/listings/{listing}', [PublicListingController::class, 'show'])->name('listings.show');
@@ -44,4 +47,15 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/listings/{listing}/availability', [AvailabilityController::class, 'show'])
     ->name('listings.availability');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/wishlist/{listing}', [WishlistController::class, 'store'])
+        ->name('wishlist.store');
+
+    Route::delete('/wishlist/{listing}', [WishlistController::class, 'destroy'])
+        ->name('wishlist.destroy');
+
+    Route::get('/wishlist', [WishlistController::class, 'index'])
+        ->name('wishlist.index');
+});
 require __DIR__.'/auth.php';
