@@ -228,18 +228,54 @@
                         </button>
 
                         <p class="text-xs text-gray-500 text-center">
-                            You won’t be charged — payments later.
+                            You won't be charged — payments later.
                         </p>
                     </form>
                 </div>
+            </div>
+            {{-- map view --}}
+            <div class="bg-white border rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-gray-900">Where you'll be</h3>
+                <p class="text-sm text-gray-500 mt-1">{{ $listing->city }}, {{ strtoupper($listing->country) }}</p>
 
-                <a href="{{ route('listings.index') }}"
-                    class="inline-flex justify-center w-full px-4 py-2 rounded-lg border hover:bg-gray-50">
-                    Back to listings
-                </a>
+                @if($listing->lat && $listing->lng)
+                    <div class="mt-4 w-full border rounded-2xl overflow-hidden">
+                        <div id="listing-map" class="w-full h-[420px]"></div>
+                    </div>
+                @else
+                    <div class="mt-4 text-sm text-gray-600 bg-gray-50 border rounded-2xl p-4">
+                        Map not available yet (this listing has no coordinates).
+                    </div>
+                @endif
             </div>
         </div>
     </div>
+    @if($listing->lat && $listing->lng)
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                if (!window.L) {
+                    console.error('Leaflet not loaded (window.L missing).');
+                    return;
+                }
+
+                const el = document.getElementById('listing-map');
+                if (!el) return;
+
+                const lat = {{ (float) $listing->lat }};
+                const lng = {{ (float) $listing->lng }};
+
+                const map = window.L.map('listing-map', { scrollWheelZoom: false });
+                window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap'
+                }).addTo(map);
+
+                window.L.marker([lat, lng]).addTo(map);
+
+                map.setView([lat, lng], 13);
+            });
+        </script>
+    @endif
     <script>
         (function () {
             const pricePerNightCents = {{ (int) $listing->price_per_night }};

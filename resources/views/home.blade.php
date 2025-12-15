@@ -33,7 +33,7 @@
 
                                 <div class="md:col-span-4 flex items-end">
                                     <button
-                                        class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700">
+                                        class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl bg-rose-600 text-white font-medium hover:bg-red-700">
                                         Search
                                     </button>
                                 </div>
@@ -77,7 +77,7 @@
                                     Build a real marketplace experience: listings, photos, bookings, and host tools.
                                 </div>
                                 <a href="{{ route('listings.index') }}"
-                                    class="text-sm font-medium text-red-600 hover:text-red-700">
+                                    class="text-sm font-medium text-rose-600 hover:text-red-700">
                                     Browse all stays →
                                 </a>
                             </div>
@@ -94,7 +94,7 @@
                     <h2 class="text-2xl font-bold text-gray-900">Featured stays</h2>
                     <p class="text-gray-600 mt-1">A few great places to get started.</p>
                 </div>
-                <a href="{{ route('listings.index') }}" class="text-sm font-medium text-red-600 hover:text-red-700">
+                <a href="{{ route('listings.index') }}" class="text-sm font-medium text-rose-600 hover:text-red-700">
                     View all →
                 </a>
             </div>
@@ -123,12 +123,12 @@
                     <div class="lg:col-span-4 flex lg:justify-end">
                         @auth
                             <a href="{{ route('host.listings.create') }}"
-                                class="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 font-medium">
+                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-red-700 font-medium">
                                 Create a listing
                             </a>
                         @else
                             <a href="{{ route('register') }}"
-                                class="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 font-medium">
+                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-red-700 font-medium">
                                 Sign up to host
                             </a>
                         @endauth

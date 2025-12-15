@@ -5,7 +5,7 @@
             {{-- LEFT: Brand --}}
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <div class="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold">
+                    <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold">
                         A
                     </div>
                     <span class="text-lg font-semibold text-gray-900 hidden sm:inline">
