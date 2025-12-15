@@ -11,23 +11,7 @@
         @else
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($listings as $listing)
-                    @php $cover = $listing->photos->first(); @endphp
-
-                    <a href="{{ route('listings.show', $listing) }}"
-                        class="bg-white border rounded-2xl overflow-hidden hover:shadow-sm transition">
-                        <div class="h-48 bg-gray-100">
-                            @if($cover)
-                                <img src="{{ asset('storage/' . $cover->path) }}" class="w-full h-full object-cover">
-                            @endif
-                        </div>
-                        <div class="p-4">
-                            <div class="font-semibold">{{ $listing->title }}</div>
-                            <div class="text-sm text-gray-600">
-                                {{ $listing->currency }}
-                                {{ number_format($listing->price_per_night / 100, 2) }} / night
-                            </div>
-                        </div>
-                    </a>
+                    <x-listing-card :listing="$listing" :wishlisted-ids="$wishlistedIds" />
                 @endforeach
             </div>
 

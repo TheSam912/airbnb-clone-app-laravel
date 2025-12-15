@@ -101,27 +101,7 @@
 
             <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($featured as $listing)
-                    @php $cover = $listing->photos->first(); @endphp
-
-                    <a href="{{ route('listings.show', $listing) }}"
-                        class="group bg-white border rounded-2xl overflow-hidden hover:shadow-sm transition">
-                        <div class="h-48 bg-gray-100">
-                            @if($cover)
-                                <img src="{{ asset('storage/' . $cover->path) }}"
-                                    class="w-full h-48 object-cover group-hover:scale-[1.02] transition" alt="">
-                            @endif
-                        </div>
-
-                        <div class="p-4 space-y-1">
-                            <div class="text-sm text-gray-600">{{ $listing->city }}, {{ strtoupper($listing->country) }}
-                            </div>
-                            <div class="font-semibold text-gray-900 truncate">{{ $listing->title }}</div>
-                            <div class="text-sm text-gray-800">
-                                {{ $listing->currency }} {{ number_format($listing->price_per_night / 100, 2) }}
-                                <span class="text-gray-500">/ night</span>
-                            </div>
-                        </div>
-                    </a>
+                    <x-listing-card :listing="$listing" :wishlisted-ids="$wishlistedIds" />
                 @empty
                     <div class="col-span-full p-10 text-center text-gray-500 border rounded-2xl bg-gray-50">
                         No published listings yet. Publish one from your host dashboard.

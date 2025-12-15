@@ -38,7 +38,13 @@ class PublicListingController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        return view('listings.index', compact('listings'));
+        $user = $request->user();
+
+        $wishlistedIds = $user
+            ? $user->wishlistListings()->pluck('listings.id')->all()
+            : [];
+
+        return view('listings.index', compact('listings', 'wishlistedIds'));
     }
 
     public function show(Listing $listing): View

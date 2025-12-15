@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $featured = Listing::query()
             ->where('is_published', true)
@@ -16,6 +17,12 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        return view('home', compact('featured'));
+        $user = $request->user();
+
+        $wishlistedIds = $user
+            ? $user->wishlistListings()->pluck('listings.id')->all()
+            : [];
+
+        return view('home', compact('featured', 'wishlistedIds'));
     }
 }
