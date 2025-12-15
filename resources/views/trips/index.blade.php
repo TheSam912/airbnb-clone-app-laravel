@@ -33,7 +33,7 @@
 
                                         <div class="mt-2 flex flex-wrap items-center gap-2">
                                             <span class="text-xs px-2 py-1 rounded-full border
-                                                {{ $booking->status === 'cancelled'
+                                                            {{ $booking->status === 'cancelled'
                     ? 'bg-gray-50 text-gray-700 border-gray-200'
                     : 'bg-emerald-50 text-emerald-700 border-emerald-200' }}">
                                                 {{ ucfirst($booking->status) }}
@@ -57,9 +57,10 @@
                                             onsubmit="return confirm('Cancel this booking?')" class="w-full sm:w-auto">
                                             @csrf
                                             @method('PATCH')
-                                            <button class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 rounded-xl
-                                                               bg-red-600 text-white font-medium hover:bg-red-700 active:bg-red-800
-                                                               focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                            <button
+                                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 rounded-xl
+                                                                               bg-red-600 text-white font-medium hover:bg-red-700 active:bg-red-800
+                                                                               focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                                 Cancel booking
                                             </button>
                                         </form>
@@ -77,4 +78,5 @@
             {{ $bookings->links() }}
         </div>
     </div>
+    <x-footer />
 </x-app-layout>

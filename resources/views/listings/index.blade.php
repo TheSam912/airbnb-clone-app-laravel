@@ -155,4 +155,5 @@
             map.fitBounds(bounds, { padding: [30, 30] });
         });
     </script>
+
 </x-app-layout>
