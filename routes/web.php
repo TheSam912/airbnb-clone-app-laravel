@@ -46,6 +46,8 @@ Route::middleware(['auth'])->prefix('host')->name('host.')->group(function () {
         ->name('onboarding.listings.show');
     Route::post('onboarding/listings/{listing}/step/{step}', [ListingWizardController::class, 'store'])
         ->name('onboarding.listings.store');
+
+    Route::get('/host/dashboard', [ListingController::class, 'index'])->name('host.dashboard');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/trips', [TripController::class, 'index'])->name('trips.index');

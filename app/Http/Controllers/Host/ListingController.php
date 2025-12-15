@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreListingRequest;
 use App\Http\Requests\UpdateListingRequest;
 use App\Models\Amenity;
+use App\Models\Booking;
 use App\Models\Listing;
 use App\Models\ListingPhoto;
 use Illuminate\Http\RedirectResponse;
@@ -17,12 +18,32 @@ class ListingController extends Controller
 {
     public function index(Request $request): View
     {
+        $userId = $request->user()->id;
+
         $listings = Listing::query()
-            ->where('user_id', $request->user()->id)
+            ->where('user_id', $userId)
             ->latest()
             ->paginate(10);
 
-        return view('host.listings.index', compact('listings'));
+        $totalListings = Listing::where('user_id', $userId)->count();
+        $publishedCount = Listing::where('user_id', $userId)->where('is_published', true)->count();
+        $draftCount = Listing::where('user_id', $userId)->where('is_published', false)->count();
+
+        $upcomingBookings = Booking::query()
+            ->whereHas('listing', fn ($q) => $q->where('user_id', $userId))
+            ->where('status', 'confirmed')
+            ->whereDate('check_in', '>=', now())
+            ->orderBy('check_in')
+            ->limit(5)
+            ->get();
+
+        return view('host.dashboard.dashboard', compact(
+            'listings',
+            'totalListings',
+            'publishedCount',
+            'draftCount',
+            'upcomingBookings'
+        ));
     }
 
     public function createWizard(): View
