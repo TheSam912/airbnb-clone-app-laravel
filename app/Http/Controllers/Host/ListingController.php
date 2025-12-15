@@ -15,21 +15,58 @@ use Illuminate\View\View;
 
 class ListingController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $listings = Listing::query()
-            ->where('user_id', request()->user()->id)
+            ->where('user_id', $request->user()->id)
             ->latest()
             ->paginate(10);
 
         return view('host.listings.index', compact('listings'));
     }
 
-    public function create(): View
+    public function createWizard(): View
     {
-        $amenities = Amenity::query()->orderBy('name')->get();
+        $step = 1;
 
-        return view('host.onboarding.listings.start', compact('amenities'));
+        $listing = new Listing([
+            'title' => '',
+            'max_guests' => 1,
+            'bedrooms' => 0,
+            'beds' => 1,
+            'bathrooms' => 1,
+        ]);
+
+        return view('host.onboarding.steps.step1', compact('step', 'listing'));
+    }
+
+    public function storeWizardStep1(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:80'],
+            'max_guests' => ['required', 'integer', 'min:1', 'max:16'],
+            'bedrooms' => ['required', 'integer', 'min:0', 'max:20'],
+            'beds' => ['required', 'integer', 'min:1', 'max:30'],
+            'bathrooms' => ['required', 'numeric', 'min:0.5', 'max:20'],
+        ]);
+
+        $listing = Listing::create([
+            'user_id' => $request->user()->id,
+            ...$data,
+
+            'description' => 'Draft listing — add details in the next steps.',
+            'country' => 'GB',
+            'city' => 'TBD',
+            'address_line1' => 'TBD',
+            'address_line2' => null,
+            'postcode' => 'TBD',
+
+            'currency' => 'GBP',
+            'price_per_night' => 10000,
+            'is_published' => false,
+        ]);
+
+        return redirect()->route('host.onboarding.listings.show', [$listing, 2]);
     }
 
     public function store(StoreListingRequest $request): RedirectResponse

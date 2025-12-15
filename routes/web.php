@@ -33,14 +33,17 @@ Route::middleware(['auth'])->prefix('host')->name('host.')->group(function () {
     Route::post('listings/{listing}/photos', [ListingController::class, 'storePhoto'])->name('listings.photos.store');
     Route::delete('listings/{listing}/photos/{photo}', [ListingController::class, 'destroyPhoto'])->name('listings.photos.destroy');
     Route::patch('listings/{listing}/photos/{photo}/cover', [ListingController::class, 'setCoverPhoto'])->name('listings.photos.cover');
+
     Route::get('bookings', [HostBookingController::class, 'index'])->name('bookings.index');
     Route::patch('bookings/{booking}/cancel', [HostBookingController::class, 'cancel'])
         ->name('bookings.cancel');
-    Route::get('onboarding/listings/start', [ListingWizardController::class, 'start'])->name('onboarding.listings.start');
 
+    Route::get('onboarding/listings/create', [ListingController::class, 'createWizard'])
+        ->name('onboarding.listings.create');
+    Route::post('onboarding/listings', [ListingController::class, 'storeWizardStep1'])
+        ->name('onboarding.listings.storeStep1');
     Route::get('onboarding/listings/{listing}/step/{step}', [ListingWizardController::class, 'show'])
         ->name('onboarding.listings.show');
-
     Route::post('onboarding/listings/{listing}/step/{step}', [ListingWizardController::class, 'store'])
         ->name('onboarding.listings.store');
 });
