@@ -7,7 +7,7 @@
             </div>
         </div>
     </x-slot>
-    <div class="py-8">
+    <div class="py-8 px-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="GET" action="{{ route('listings.index') }}"
                 class="mb-6 bg-white border rounded-2xl p-4 shadow-sm">

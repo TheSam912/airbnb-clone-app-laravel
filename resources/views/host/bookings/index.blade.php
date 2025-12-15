@@ -11,7 +11,7 @@
         </div>
     </x-slot>
 
-    <div class="py-8">
+    <div class="py-8 px-4">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
             <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
@@ -49,10 +49,10 @@
                                 <span class="text-gray-300 mx-2">•</span>
                                 Status:
                                 <span class="font-medium
-                                                                    {{ $booking->status === 'confirmed' ? 'text-emerald-700' : '' }}
-                                                                    {{ $booking->status === 'pending' ? 'text-amber-700' : '' }}
-                                                                    {{ $booking->status === 'cancelled' ? 'text-red-700' : '' }}
-                                                                ">
+                                                                                {{ $booking->status === 'confirmed' ? 'text-emerald-700' : '' }}
+                                                                                {{ $booking->status === 'pending' ? 'text-amber-700' : '' }}
+                                                                                {{ $booking->status === 'cancelled' ? 'text-red-700' : '' }}
+                                                                            ">
                                     {{ ucfirst($booking->status) }}
                                 </span>
                             </div>
@@ -74,10 +74,11 @@
                                 onsubmit="return confirm('Cancel this booking for the guest?')">
                                 @csrf
                                 @method('PATCH')
-                                <button class="inline-flex items-center justify-center px-4 py-2 rounded-lg
-                                       bg-red-600 text-white font-medium
-                                       hover:bg-red-700 active:bg-red-800
-                                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                <button
+                                    class="inline-flex items-center justify-center px-4 py-2 rounded-lg
+                                                               bg-red-600 text-white font-medium
+                                                               hover:bg-red-700 active:bg-red-800
+                                                               focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                     Cancel
                                 </button>
                             </form>
