@@ -130,26 +130,79 @@
 
     {{-- MOBILE menu --}}
     <div x-show="open" x-transition @click.outside="open = false" class="md:hidden border-t bg-white">
-        <div class="px-4 py-4 space-y-3">
-            <a href="{{ route('listings.index') }}" class="block font-medium">Stays</a>
+        <div class="px-4 py-4 space-y-4">
+
+            {{-- Top quick links --}}
+            <a href="{{ route('listings.index') }}"
+                class="flex items-center justify-between px-4 py-3 rounded-2xl border hover:bg-gray-50">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">🏠</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Explore stays</div>
+                        <div class="text-xs text-gray-500">Find your next trip</div>
+                    </div>
+                </div>
+                <span class="text-gray-400">›</span>
+            </a>
 
             @auth
-                <a href="{{ route('host.listings.index') }}" class="block font-medium">Host</a>
-                <a href="{{ route('host.bookings.index') }}" class="block font-medium">Bookings</a>
-                <a href="{{ route('trips.index') }}" class="block font-medium">Trips</a>
-                <a href="{{ route('wishlist.index') }}" class="block font-medium">Wishlist</a>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="{{ route('trips.index') }}" class="px-4 py-3 rounded-2xl border hover:bg-gray-50">
+                        <div class="text-sm font-semibold text-gray-900">Trips</div>
+                        <div class="text-xs text-gray-500 mt-1">Your bookings</div>
+                    </a>
 
-                <hr>
+                    <a href="{{ route('wishlist.index') }}" class="px-4 py-3 rounded-2xl border hover:bg-gray-50">
+                        <div class="text-sm font-semibold text-gray-900">Wishlist</div>
+                        <div class="text-xs text-gray-500 mt-1">Saved stays</div>
+                    </a>
+                </div>
 
-                <a href="{{ route('profile.edit') }}" class="block text-sm text-gray-600">Profile</a>
+                <div class="pt-2">
+                    <div class="px-2 text-xs text-gray-500 uppercase">Hosting</div>
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="block text-sm text-red-600">Log out</button>
-                </form>
+                    <a href="{{ route('host.listings.index') }}"
+                        class="mt-2 flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50">
+                        <span class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">🧳</span>
+                        <span class="font-medium text-gray-900">Manage listings</span>
+                    </a>
+
+                    <a href="{{ route('host.bookings.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50">
+                        <span class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">📅</span>
+                        <span class="font-medium text-gray-900">Host bookings</span>
+                    </a>
+                </div>
+
+                <div class="pt-2 border-t">
+                    <div class="px-2 pt-3 text-xs text-gray-500 uppercase">Account</div>
+
+                    <a href="{{ route('profile.edit') }}"
+                        class="mt-2 flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50">
+                        <span class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center">👤</span>
+                        <span class="font-medium text-gray-900">Profile</span>
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}" class="mt-1">
+                        @csrf
+                        <button class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-red-50 text-red-600">
+                            <span class="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center">⎋</span>
+                            <span class="font-medium">Log out</span>
+                        </button>
+                    </form>
+                </div>
             @else
-                <a href="{{ route('login') }}" class="block font-medium">Log in</a>
-                <a href="{{ route('register') }}" class="block font-medium text-red-600">Sign up</a>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="{{ route('login') }}"
+                        class="px-4 py-3 rounded-2xl border text-center font-medium hover:bg-gray-50">
+                        Log in
+                    </a>
+
+                    <a href="{{ route('register') }}"
+                        class="px-4 py-3 rounded-2xl bg-red-600 text-white text-center font-medium hover:bg-red-700">
+                        Sign up
+                    </a>
+                </div>
             @endauth
         </div>
     </div>
