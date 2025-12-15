@@ -122,13 +122,13 @@
                     </div>
                     <div class="lg:col-span-4 flex lg:justify-end">
                         @auth
-                            <a href="{{ route('host.listings.create') }}"
-                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-red-700 font-medium">
+                            <a href="{{ route('host.onboarding.listings.create') }}"
+                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 font-medium">
                                 Create a listing
                             </a>
                         @else
                             <a href="{{ route('register') }}"
-                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-red-700 font-medium">
+                                class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 font-medium">
                                 Sign up to host
                             </a>
                         @endauth
