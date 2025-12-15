@@ -43,7 +43,7 @@
                     </a>
                 @else
                     @auth
-                        <a href="{{ route('host.listings.create') }}"
+                        <a href="{{ route('host.onboarding.listings.start') }}"
                             class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50">
                             Airbnb your home
                         </a>

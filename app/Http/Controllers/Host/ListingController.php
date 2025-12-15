@@ -29,7 +29,7 @@ class ListingController extends Controller
     {
         $amenities = Amenity::query()->orderBy('name')->get();
 
-        return view('host.listings.create', compact('amenities'));
+        return view('host.onboarding.listings.start', compact('amenities'));
     }
 
     public function store(StoreListingRequest $request): RedirectResponse

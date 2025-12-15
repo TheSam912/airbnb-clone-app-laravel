@@ -7,7 +7,7 @@
             </div>
 
             <div class="flex justify-end">
-                <a href="{{ route('host.listings.create') }}"
+                <a href="{{ route('host.onboarding.listings.start') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-600 text-white hover:bg-rose-700">
                         <span class="text-sm font-medium">Create</span>
                 </a>

@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Host\BookingController as HostBookingController;
 use App\Http\Controllers\Host\ListingController;
+use App\Http\Controllers\Host\Onboarding\ListingWizardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicListingController;
 use App\Http\Controllers\TripController;
@@ -35,6 +36,13 @@ Route::middleware(['auth'])->prefix('host')->name('host.')->group(function () {
     Route::get('bookings', [HostBookingController::class, 'index'])->name('bookings.index');
     Route::patch('bookings/{booking}/cancel', [HostBookingController::class, 'cancel'])
         ->name('bookings.cancel');
+    Route::get('onboarding/listings/start', [ListingWizardController::class, 'start'])->name('onboarding.listings.start');
+
+    Route::get('onboarding/listings/{listing}/step/{step}', [ListingWizardController::class, 'show'])
+        ->name('onboarding.listings.show');
+
+    Route::post('onboarding/listings/{listing}/step/{step}', [ListingWizardController::class, 'store'])
+        ->name('onboarding.listings.store');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
