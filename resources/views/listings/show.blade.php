@@ -11,14 +11,118 @@
             </div>
 
             {{-- Photo grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach($listing->photos as $photo)
-                    <div class="bg-gray-100 rounded-xl overflow-hidden">
-                        <img src="{{ asset('storage/' . $photo->path) }}" class="w-full h-56 object-cover" alt="">
+            @php
+                $photos = $listing->photos->sortByDesc('is_cover')->values();
+            @endphp
+
+            <div x-data="{
+        open:false,
+        index:0,
+        photos: @js($photos->map(fn($p) => asset('storage/' . $p->path))->all()),
+        openAt(i){ this.index=i; this.open=true; document.body.classList.add('overflow-hidden'); },
+        close(){ this.open=false; document.body.classList.remove('overflow-hidden'); },
+        next(){ if(this.index < this.photos.length-1) this.index++; },
+        prev(){ if(this.index > 0) this.index--; },
+    }" @keydown.escape.window="if(open) close()" class="mt-6">
+
+                {{-- Mobile slider + dots + counter --}}
+                <div class="sm:hidden -mx-4">
+                    <div class="relative px-4">
+                        <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide" x-ref="mtrack"
+                            @scroll.throttle.80ms="
+                const el = $refs.mtrack;
+                const card = el.firstElementChild?.getBoundingClientRect().width || 1;
+                const gap = 16;
+                index = Math.round(el.scrollLeft / (card + gap));
+             ">
+                            @foreach($photos as $i => $photo)
+                                <button type="button" @click="openAt({{ $i }})"
+                                    class="snap-center shrink-0 w-full h-72 rounded-2xl overflow-hidden bg-gray-100">
+                                    <img src="{{ asset('storage/' . $photo->path) }}" class="w-full h-full object-cover"
+                                        alt="">
+                                </button>
+                            @endforeach
+                        </div>
+
+                        {{-- Counter (inside box now) --}}
+                        <div
+                            class="absolute top-3 left-7 px-3 py-1.5 rounded-full bg-black/55 text-white text-xs font-medium">
+                            <span x-text="index + 1"></span>/<span x-text="photos.length"></span>
+                        </div>
+
+                        {{-- Dots --}}
+                        <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+                            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/35">
+                                <template x-for="i in photos.length" :key="i">
+                                    <button type="button" class="w-2 h-2 rounded-full transition"
+                                        :class="(i-1) === index ? 'bg-white' : 'bg-white/40'" @click.prevent="
+                                const el = $refs.mtrack;
+                                const card = el.firstElementChild?.getBoundingClientRect().width || 1;
+                                const gap = 16;
+                                el.scrollTo({ left: (i-1)*(card+gap), behavior:'smooth' });
+                                index = i-1;
+                            ">
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
                     </div>
-                @endforeach
-            </div>
-            <div x-data="gallery({{ $listing->photos->pluck('path')->values()->toJson() }})">
+                </div>
+
+                {{-- Desktop grid --}}
+                <div class="hidden sm:grid grid-cols-4 grid-rows-2 gap-2 rounded-2xl overflow-hidden">
+                    @foreach($photos->take(5) as $i => $photo)
+                        <button type="button" @click="openAt({{ $i }})"
+                            class="{{ $i === 0 ? 'col-span-2 row-span-2' : '' }} relative group">
+                            <img src="{{ asset('storage/' . $photo->path) }}"
+                                class="w-full h-full object-cover group-hover:brightness-95 transition" alt="">
+                        </button>
+                    @endforeach
+                </div>
+
+                {{-- Fullscreen modal --}}
+                <div x-show="open" x-transition.opacity class="fixed inset-0 z-[999] bg-black/90" style="display:none;"
+                    @click.self="close()">
+
+                    <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                        <button type="button" @click="close()"
+                            class="px-4 py-2 rounded-full bg-white/10 text-white hover:bg-white/20">
+                            ✕ Close
+                        </button>
+
+                        <div class="text-white/90 text-sm font-medium">
+                            <span x-text="index + 1"></span> / <span x-text="photos.length"></span>
+                        </div>
+                    </div>
+
+                    <div class="h-full w-full flex items-center justify-center px-4">
+                        <button type="button" @click="prev()" :disabled="index === 0" class="hidden sm:inline-flex absolute left-4 top-1/2 -translate-y-1/2
+                           w-11 h-11 rounded-full bg-white/10 text-white hover:bg-white/20
+                           items-center justify-center disabled:opacity-30 disabled:hover:bg-white/10">
+                            ‹
+                        </button>
+
+                        <img :src="photos[index]" class="max-h-[85vh] max-w-[95vw] object-contain select-none" alt="">
+
+                        <button type="button" @click="next()" :disabled="index === photos.length - 1" class="hidden sm:inline-flex absolute right-4 top-1/2 -translate-y-1/2
+                           w-11 h-11 rounded-full bg-white/10 text-white hover:bg-white/20
+                           items-center justify-center disabled:opacity-30 disabled:hover:bg-white/10">
+                            ›
+                        </button>
+                    </div>
+
+                    {{-- Mobile nav buttons --}}
+                    <div class="sm:hidden absolute bottom-5 left-0 right-0 px-4 flex gap-3">
+                        <button type="button" @click="prev()" :disabled="index === 0"
+                            class="w-1/2 px-4 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 disabled:opacity-30">
+                            Prev
+                        </button>
+                        <button type="button" @click="next()" :disabled="index === photos.length - 1"
+                            class="w-1/2 px-4 py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 disabled:opacity-30">
+                            Next
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
