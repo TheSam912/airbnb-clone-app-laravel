@@ -5,10 +5,9 @@
             {{-- LEFT: Brand --}}
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold">
-                        A
-                    </div>
-                    <span class="text-lg font-semibold text-gray-900 hidden sm:inline">
+                    <img src="{{ asset('images/logo.png') }}" alt="Airclone" class="w-12 bg-white" />
+
+                    <span class="text-lg font-semibold text-rose-600 hidden sm:inline">
                         Airclone
                     </span>
                 </a>
@@ -44,13 +43,14 @@
                 @else
                     @auth
                         <a href="{{ route('host.onboarding.listings.create') }}"
-                            class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50">
+                            class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50 text-rose-600 border-rose-600">
                             Airbnb your home
                         </a>
                     @endauth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="flex items-center gap-2 px-3 py-2 rounded-full border hover:shadow-sm">
+                            <button
+                                class="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-400 hover:shadow-sm">
                                 <span class="text-sm font-medium text-gray-700">
                                     {{ Auth::user()->name }}
                                 </span>
