@@ -1,3 +1,21 @@
+{{-- Mobile sticky reserve bar --}}
+<div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 border-t bg-white">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+            <div class="text-sm font-semibold text-gray-900">
+                {{ $listing->currency }} {{ number_format($listing->price_per_night / 100, 2) }}
+                <span class="text-gray-500 font-normal">/ night</span>
+            </div>
+            <div class="text-xs text-gray-500 truncate">
+                {{ $listing->city }}, {{ strtoupper($listing->country) }}
+            </div>
+        </div>
+        <a href="#booking"
+            class="shrink-0 px-5 py-3 rounded-lg bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed">
+            Reserve
+        </a>
+    </div>
+</div>
 <x-app-layout>
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -168,7 +186,7 @@
                     <form method="POST" action="{{ route('bookings.store', $listing) }}" class="space-y-3">
                         @csrf
 
-                        <div>
+                        <div id="booking">
                             <label class="block text-sm font-medium mb-1">Check-in</label>
                             <input id="check_in" type="date" name="check_in" value="{{ old('check_in') }}"
                                 class="w-full rounded border-gray-300">
