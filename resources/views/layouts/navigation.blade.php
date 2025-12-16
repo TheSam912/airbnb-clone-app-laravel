@@ -49,13 +49,15 @@
                             Airbnb your home
                         </a>
                     @endauth
-                    <button type="button" x-data="{ dark: document.documentElement.classList.contains('dark') }" @click="
-                                                                                            dark = !dark;
-                                                                                            document.documentElement.classList.toggle('dark', dark);
-                                                                                            localStorage.setItem('theme', dark ? 'dark' : 'light');
-                                                                                        "
+                    <button type="button" x-data="{ dark: document.documentElement.classList.contains('dark') }"
+                        @click="
+                                                                                                                                    dark = !dark;
+                                                                                                                                    document.documentElement.classList.toggle('dark', dark);
+                                                                                                                                    localStorage.setItem('theme', dark ? 'dark' : 'light');
+                                                                                                                                "
                         class="inline-flex items-center justify-center w-10 h-10 rounded-full border bg-white hover:bg-gray-50
-                                                                                               dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800" aria-label="Toggle dark mode">
+                                                                                                                                       dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800"
+                        aria-label="Toggle dark mode">
                         <span x-show="!dark" aria-hidden="true">🌙</span>
                         <span x-show="dark" x-cloak aria-hidden="true">☀️</span>
                     </button>
@@ -131,7 +133,7 @@
 
             {{-- MOBILE hamburger --}}
             <div class="md:hidden">
-                <button @click="open = !open" class="p-2 rounded-lg">
+                <button @click="open = !open" class="p-2 rounded-lg text-gray-900 dark:bg-rose-600 dark:text-white">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
