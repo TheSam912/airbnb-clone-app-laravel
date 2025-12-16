@@ -2,12 +2,12 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-900">Host dashboard</h2>
-                <p class="text-sm text-gray-500 mt-1">Manage listings and bookings.</p>
+                <h2 class="font-semibold text-xl text-gray-900 dark:text-gray-200">Host dashboard</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Manage listings and bookings.</p>
             </div>
 
             <a href="{{ route('host.onboarding.listings.create') }}"
-                class="px-4 py-2.5 rounded-xl bg-rose-600 text-white font-medium hover:bg-red-700">
+                class="px-4 py-2.5 rounded-xl bg-rose-600 text-white font-medium hover:bg-rose-700">
                 Airbnb your home
             </a>
         </div>
@@ -18,33 +18,33 @@
 
             {{-- KPI cards --}}
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white border rounded-2xl p-5">
+                <div class="bg-white dark:bg-gray-200 border rounded-2xl p-5">
                     <div class="text-sm text-gray-500">Listings</div>
                     <div class="text-3xl font-semibold text-gray-900 mt-1">{{ $totalListings }}</div>
                 </div>
-                <div class="bg-white border rounded-2xl p-5">
+                <div class="bg-white dark:bg-gray-200 border rounded-2xl p-5">
                     <div class="text-sm text-gray-500">Published</div>
                     <div class="text-3xl font-semibold text-gray-900 mt-1">{{ $publishedCount }}</div>
                 </div>
-                <div class="bg-white border rounded-2xl p-5">
+                <div class="bg-white dark:bg-gray-200 border rounded-2xl p-5">
                     <div class="text-sm text-gray-500">Drafts</div>
                     <div class="text-3xl font-semibold text-gray-900 mt-1">{{ $draftCount }}</div>
                 </div>
-                <div class="bg-white border rounded-2xl p-5">
+                <div class="bg-white dark:bg-gray-200 border rounded-2xl p-5">
                     <div class="text-sm text-gray-500">Upcoming check-ins</div>
                     <div class="text-3xl font-semibold text-gray-900 mt-1">{{ $upcomingBookings->count() }}</div>
                 </div>
             </div>
 
             {{-- Drafts --}}
-            <div class="bg-white border rounded-2xl overflow-hidden">
+            <div class="bg-white dark:bg-gray-200 border rounded-2xl overflow-hidden">
                 <div class="p-5 border-b flex items-center justify-between">
                     <div>
                         <div class="font-semibold text-gray-900">Your listings</div>
                         <div class="text-sm text-gray-500">Drafts and published homes</div>
                     </div>
                     <a href="{{ route('host.onboarding.listings.create') }}"
-                        class="px-4 py-2 rounded-xl border hover:bg-gray-50">
+                        class="px-4 py-2 rounded-xl border hover:bg-gray-50 dark:hover:bg-rose-600 dark:hover:text-white dark:text-rose-600 dark:bg-gray-300">
                         New listing
                     </a>
                 </div>
@@ -79,7 +79,7 @@
                             <div class="flex items-center gap-2 shrink-0">
                                 @if(!$listing->is_published)
                                     <a href="{{ route('host.onboarding.listings.show', [$listing, 1]) }}"
-                                        class="px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-medium hover:bg-red-700">
+                                        class="px-4 py-2 rounded-xl bg-rose-600 text-white text-sm font-medium hover:bg-rose-700">
                                         Continue setup
                                     </a>
                                 @else
@@ -109,7 +109,7 @@
             </div>
 
             {{-- Upcoming bookings preview --}}
-            <div class="bg-white border rounded-2xl overflow-hidden">
+            <div class="bg-white dark:bg-gray-200 border rounded-2xl overflow-hidden">
                 <div class="p-5 border-b flex items-center justify-between">
                     <div class="font-semibold text-gray-900">Upcoming bookings</div>
                     <a href="{{ route('host.bookings.index') }}" class="text-sm underline">View all</a>

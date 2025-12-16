@@ -9,7 +9,7 @@
 @endphp
 
 <a href="{{ route('listings.show', $listing) }}"
-   class="group block bg-white border rounded-2xl overflow-hidden hover:shadow-sm transition">
+   class="group block bg-white dark:bg-gray-200 border dark:border-0 rounded-2xl overflow-hidden hover:shadow-sm transition">
     <div class="h-44 bg-gray-100 relative">
         @if($cover)
             <img src="{{ asset('storage/' . $cover->path) }}"

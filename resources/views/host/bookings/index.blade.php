@@ -2,10 +2,11 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Bookings</h2>
-                <p class="text-sm text-gray-500 mt-1">Reservations across all your listings.</p>
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bookings</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Reservations across all your listings.</p>
             </div>
-            <a href="{{ route('host.listings.index') }}" class="px-4 py-2 rounded-lg border hover:bg-gray-50">
+            <a href="{{ route('host.listings.index') }}"
+                class="px-4 py-2 rounded-lg border dark:border-rose-500 dark:text-rose-500 hover:bg-gray-200">
                 Manage listings
             </a>
         </div>
@@ -14,7 +15,7 @@
     <div class="py-8 px-4">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
-            <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
+            <div class="bg-white dark:bg-gray-200 border rounded-xl shadow-sm overflow-hidden">
                 <div class="p-4 border-b flex items-center justify-between">
                     <div class="font-medium text-gray-900">Latest bookings</div>
                     <div class="text-sm text-gray-500">Showing {{ $bookings->count() }} of {{ $bookings->total() }}
@@ -49,10 +50,10 @@
                                 <span class="text-gray-300 mx-2">•</span>
                                 Status:
                                 <span class="font-medium
-                                                                                {{ $booking->status === 'confirmed' ? 'text-emerald-700' : '' }}
-                                                                                {{ $booking->status === 'pending' ? 'text-amber-700' : '' }}
-                                                                                {{ $booking->status === 'cancelled' ? 'text-red-700' : '' }}
-                                                                            ">
+                                                                                                                        {{ $booking->status === 'confirmed' ? 'text-emerald-700' : '' }}
+                                                                                                                        {{ $booking->status === 'pending' ? 'text-amber-700' : '' }}
+                                                                                                                        {{ $booking->status === 'cancelled' ? 'text-red-700' : '' }}
+                                                                                                                    ">
                                     {{ ucfirst($booking->status) }}
                                 </span>
                             </div>
@@ -76,9 +77,9 @@
                                 @method('PATCH')
                                 <button
                                     class="inline-flex items-center justify-center px-4 py-2 rounded-lg
-                                                               bg-red-600 text-white font-medium
-                                                               hover:bg-red-700 active:bg-red-800
-                                                               focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                                                                                                                               bg-rose-600 text-white font-medium
+                                                                                                                                               hover:bg-rose-700 active:bg-rose-800
+                                                                                                                                               focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
                                     Cancel
                                 </button>
                             </form>

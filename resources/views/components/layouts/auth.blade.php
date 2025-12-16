@@ -9,11 +9,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-rose-50 via-white to-slate-50 text-gray-900">
+<body class="min-h-screen bg-gradient-to-br from-rose-200 via-white to-slate-50 text-gray-900">
     <div class="min-h-screen grid lg:grid-cols-2">
         {{-- Left / brand panel --}}
         <div class="hidden lg:flex relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-rose-600 to-red-400"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-rose-600 to-rose-400"></div>
             <div
                 class="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_20%_20%,white_0%,transparent_45%),radial-gradient(circle_at_80%_30%,white_0%,transparent_40%),radial-gradient(circle_at_40%_80%,white_0%,transparent_45%)]">
             </div>
@@ -44,7 +44,10 @@
                 </div>
 
                 <div class="text-xs text-white/70">
-                    © {{ date('Y') }} Airclone. Built for learning.
+                    © {{ date('Y') }} Airclone. Cloned From Airbnb Website <br />
+                    <p class="text-xs text-white/70">
+                        Developed By Sam Nolan
+                    </p>
                 </div>
             </div>
         </div>

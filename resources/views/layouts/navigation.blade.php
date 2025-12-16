@@ -1,13 +1,14 @@
-<nav x-data="{ open: false }" class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav x-data="{ open: false }"
+    class="sticky top-0 z-50 bg-white/80 dark:bg-gray-800 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div class="flex h-16 items-center justify-between">
 
             {{-- LEFT: Brand --}}
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo.png') }}" alt="Airclone" class="w-12 bg-white" />
+                    <img src="{{ asset('images/logo.png') }}" alt="Airclone" class="w-12 bg-white dark:bg-gray-800" />
 
-                    <span class="text-lg font-semibold text-rose-600 hidden sm:inline">
+                    <span class="text-lg font-semibold text-rose-600 dark:bg-gray-800 hidden sm:inline">
                         Airclone
                     </span>
                 </a>
@@ -18,12 +19,12 @@
             {{-- CENTER: Search pill --}}
             <div class="hidden md:flex flex-2 justify-center">
                 <a href="{{ route('listings.index') }}"
-                    class="flex items-center gap-3 px-4 py-2 rounded-full border shadow-sm hover:shadow-md transition">
-                    <span class="text-sm font-medium text-gray-800">Anywhere</span>
+                    class="flex items-center gap-3 px-4 py-2 rounded-full border dark:border-gray-400 shadow-sm hover:shadow-md transition">
+                    <span class="text-sm font-medium text-gray-800 dark:text-gray-100">Anywhere</span>
                     <span class="text-gray-300">•</span>
-                    <span class="text-sm font-medium text-gray-800">Any week</span>
+                    <span class="text-sm font-medium text-gray-800 dark:text-gray-100">Any week</span>
                     <span class="text-gray-300">•</span>
-                    <span class="text-sm text-gray-500">Add guests</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-100">Add guests</span>
                     <span class="ml-2 w-8 h-8 rounded-full text-white flex items-center justify-center">
                         🔍
                     </span>
@@ -33,28 +34,40 @@
             {{-- RIGHT: Auth --}}
             <div class="hidden md:flex items-center gap-3">
                 @guest
-                    <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100">
+                    <a href="{{ route('login') }}"
+                        class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 dark:bg-gray-300 dark:text-black dark:hover:bg-gray-500 dark:hover:text-white">
                         Log in
                     </a>
                     <a href="{{ route('register') }}"
-                        class="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 text-white hover:bg-red-700">
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-rose-600 text-white hover:bg-rose-600">
                         Sign up
                     </a>
                 @else
                     @auth
                         <a href="{{ route('host.onboarding.listings.create') }}"
-                            class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50 text-rose-600 border-rose-600">
+                            class="hidden md:inline-flex px-4 py-2 rounded-full border font-medium hover:bg-gray-50 text-rose-600 dark:text-rose-600 border-rose-600 dark:border-rose-600">
                             Airbnb your home
                         </a>
                     @endauth
+                    <button type="button" x-data="{ dark: document.documentElement.classList.contains('dark') }" @click="
+                                                                                            dark = !dark;
+                                                                                            document.documentElement.classList.toggle('dark', dark);
+                                                                                            localStorage.setItem('theme', dark ? 'dark' : 'light');
+                                                                                        "
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full border bg-white hover:bg-gray-50
+                                                                                               dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800" aria-label="Toggle dark mode">
+                        <span x-show="!dark" aria-hidden="true">🌙</span>
+                        <span x-show="dark" x-cloak aria-hidden="true">☀️</span>
+                    </button>
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-400 hover:shadow-sm">
-                                <span class="text-sm font-medium text-gray-700">
+                                class="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-400 dark:border-gray-400 hover:shadow-sm">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
                                     {{ Auth::user()->name }}
                                 </span>
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-200" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -194,7 +207,7 @@
             @else
                 <div class="grid grid-cols-2 gap-3">
                     <a href="{{ route('login') }}"
-                        class="px-4 py-3 rounded-2xl border text-center font-medium hover:bg-gray-50">
+                        class="px-4 py-3 rounded-2xl border text-gray-100 text-center font-medium hover:bg-gray-50">
                         Log in
                     </a>
 

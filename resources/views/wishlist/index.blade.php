@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl">My wishlist</h2>
+        <h2 class="font-semibold text-xl dark:text-gray-200">My wishlist</h2>
     </x-slot>
 
     <div class="py-8 max-w-7xl mx-auto px-4">
@@ -20,5 +20,5 @@
             </div>
         @endif
     </div>
-    <x-footer />
+
 </x-app-layout>

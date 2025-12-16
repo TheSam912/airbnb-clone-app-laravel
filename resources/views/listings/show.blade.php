@@ -21,8 +21,8 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900">{{ $listing->title }}</h1>
-                <div class="text-sm text-gray-600 mt-1">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-200">{{ $listing->title }}</h1>
+                <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     {{ $listing->city }}, {{ strtoupper($listing->country) }}
                     <span class="text-gray-300 mx-2">•</span>
                     Hosted by {{ $listing->host->name }}
@@ -145,7 +145,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 bg-white border rounded-xl p-6 space-y-4">
+                <div class="md:col-span-2 bg-white dark:bg-gray-200 border rounded-xl p-6 space-y-4">
                     <div class="text-gray-700 whitespace-pre-line">{{ $listing->description }}</div>
 
                     <div class="text-sm text-gray-700">
@@ -160,7 +160,8 @@
                         <div class="font-medium text-gray-900 mb-2">Amenities</div>
                         <div class="flex flex-wrap gap-2">
                             @foreach($listing->amenities as $amenity)
-                                <span class="text-xs px-2 py-1 rounded-full border bg-gray-50">
+                                <span
+                                    class="text-xs px-2 py-1 rounded-full border bg-gray-50 dark:bg-rose-500 dark:text-white">
                                     {{ $amenity->name }}
                                 </span>
                             @endforeach
@@ -172,7 +173,7 @@
                 </div>
 
                 {{-- Price card (booking UI comes next) --}}
-                <div class="bg-white border rounded-xl p-6 space-y-4 h-fit lg:sticky lg:top-6">
+                <div class="bg-white dark:bg-gray-200 border rounded-xl p-6 space-y-4 h-fit lg:sticky lg:top-6">
                     <div class="text-xl font-bold">
                         {{ $listing->currency }} {{ number_format($listing->price_per_night / 100, 2) }}
                         <span class="text-sm font-normal text-gray-500">/ night</span>
@@ -235,7 +236,7 @@
                 </div>
             </div>
             {{-- map view --}}
-            <div class="bg-white border rounded-xl p-6">
+            <div class="bg-white dark:bg-gray-200 border rounded-xl p-6">
                 <h3 class="text-lg font-semibold text-gray-900">Where you'll be</h3>
                 <p class="text-sm text-gray-500 mt-1">{{ $listing->city }}, {{ strtoupper($listing->country) }}</p>
 

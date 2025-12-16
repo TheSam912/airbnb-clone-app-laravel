@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Trips</h2>
-            <p class="text-sm text-gray-500 mt-1">Your reservations will show here.</p>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Trips</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Your reservations will show here.</p>
         </div>
     </x-slot>
 
     <div class="py-8 px-4">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
+            <div class="bg-white dark:bg-gray-200 border rounded-xl shadow-sm overflow-hidden">
                 @forelse($bookings as $booking)
                             @php $cover = $booking->listing?->photos?->first(); @endphp
 
@@ -33,7 +33,7 @@
 
                                         <div class="mt-2 flex flex-wrap items-center gap-2">
                                             <span class="text-xs px-2 py-1 rounded-full border
-                                                            {{ $booking->status === 'cancelled'
+                                                                                                                                                                                                {{ $booking->status === 'cancelled'
                     ? 'bg-gray-50 text-gray-700 border-gray-200'
                     : 'bg-emerald-50 text-emerald-700 border-emerald-200' }}">
                                                 {{ ucfirst($booking->status) }}
@@ -48,7 +48,7 @@
 
                                 <div class="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     <a href="{{ route('listings.show', $booking->listing) }}"
-                                        class="w-full sm:w-auto px-4 py-2 rounded-xl border text-center hover:bg-gray-50">
+                                        class="w-full sm:w-auto px-4 py-2 rounded-xl border dark:border-gray-600 dark:text-gray-800 text-center hover:bg-gray-50">
                                         View stay
                                     </a>
 
@@ -59,8 +59,8 @@
                                             @method('PATCH')
                                             <button
                                                 class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 rounded-xl
-                                                                               bg-red-600 text-white font-medium hover:bg-red-700 active:bg-red-800
-                                                                               focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                                                                                                                                                                                                                                               bg-rose-600 text-white font-medium hover:bg-rose-700 active:bg-rose-800
+                                                                                                                                                                                                                                                               focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2">
                                                 Cancel booking
                                             </button>
                                         </form>
@@ -78,5 +78,4 @@
             {{ $bookings->links() }}
         </div>
     </div>
-    <x-footer />
 </x-app-layout>

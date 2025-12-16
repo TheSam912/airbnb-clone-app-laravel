@@ -36,7 +36,7 @@
 
         <div class="flex items-center gap-4 ">
             <x-primary-button
-                class="bg-red-600 hover:bg-red-700 active:bg-red-800 focus:ring-red-500">{{ __('Save') }}</x-primary-button>
+                class="bg-rose-600 hover:bg-rose-700 active:bg-rose-800 focus:ring-rose-500">{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'password-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"

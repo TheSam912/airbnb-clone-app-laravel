@@ -17,18 +17,27 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-800">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
         @isset($header)
-            <header class="bg-white shadow">
+            <header class="bg-white shadow dark:bg-gray-800">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
         @endisset
 
+        <script>
+            (function () {
+                const stored = localStorage.getItem('theme'); // 'dark' | 'light' | null
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const useDark = stored ? stored === 'dark' : prefersDark;
+
+                document.documentElement.classList.toggle('dark', useDark);
+            })();
+        </script>
         <!-- Page Content -->
         <div class="min-h-screen flex flex-col">
             <main class="flex-1">
