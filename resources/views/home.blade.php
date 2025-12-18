@@ -54,10 +54,10 @@
                             @else
                                 <a href="{{ route('register') }}"
                                     class="px-5 py-3 rounded-xl border dark:border-rose-600
-                                                                                   bg-white hover:bg-gray-50 hover:text-gray-900
-                                                                                   dark:bg-rose-600 dark:text-white
-                                                                                   hover:bg-black hover:text-white
-                                                                                   dark:hover:bg-gray-200 dark:hover:text-gray-900">
+                                                                                       bg-white hover:bg-gray-50 hover:text-gray-900
+                                                                                       dark:bg-rose-600 dark:text-white
+                                                                                       hover:bg-black hover:text-white
+                                                                                       dark:hover:bg-gray-200 dark:hover:text-gray-900">
                                     Become a member
                                 </a>
                             @endauth
@@ -96,7 +96,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="flex items-end justify-between gap-4">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Featurose stays</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Featured stays</h2>
                     <p class="text-gray-600 dark:text-gray-400 mt-1">A few great places to get started.</p>
                 </div>
                 <a href="{{ route('listings.index') }}"
